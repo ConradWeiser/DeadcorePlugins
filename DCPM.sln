@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResetLevel", "ResetLevel\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathTimer", "PathTimer\PathTimer.csproj", "{7DAC346F-3F1D-4A3C-B6F2-877CE12011F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost", "Ghost\Ghost.csproj", "{B2097CFC-D79C-40C5-8A64-F0A6A6745CB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7DAC346F-3F1D-4A3C-B6F2-877CE12011F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DAC346F-3F1D-4A3C-B6F2-877CE12011F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DAC346F-3F1D-4A3C-B6F2-877CE12011F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2097CFC-D79C-40C5-8A64-F0A6A6745CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2097CFC-D79C-40C5-8A64-F0A6A6745CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2097CFC-D79C-40C5-8A64-F0A6A6745CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2097CFC-D79C-40C5-8A64-F0A6A6745CB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
