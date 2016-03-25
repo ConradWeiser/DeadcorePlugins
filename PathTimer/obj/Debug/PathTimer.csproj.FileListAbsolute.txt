@@ -7,3 +7,12 @@ F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\Pat
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\DCPMCommon.pdb
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\obj\Debug\PathTimer.dll
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\obj\Debug\PathTimer.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\bin\Debug\PathTimer.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\bin\Debug\PathTimer.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\bin\Debug\Assembly-CSharp.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\bin\Debug\DCPMCommon.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\bin\Debug\UnityEngine.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\bin\Debug\DCPMCommon.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\obj\Debug\PathTimer.csprojResolveAssemblyReference.cache
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\obj\Debug\PathTimer.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\PathTimer\obj\Debug\PathTimer.pdb

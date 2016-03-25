@@ -8,3 +8,11 @@ F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\Res
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\obj\Debug\ResetLevel.dll
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\obj\Debug\ResetLevel.pdb
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\obj\Debug\ResetLevel.csprojResolveAssemblyReference.cache
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\bin\Debug\ResetLevel.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\bin\Debug\ResetLevel.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\bin\Debug\DCPMCommon.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\bin\Debug\UnityEngine.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\bin\Debug\DCPMCommon.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\obj\Debug\ResetLevel.csprojResolveAssemblyReference.cache
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\obj\Debug\ResetLevel.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\ResetLevel\obj\Debug\ResetLevel.pdb

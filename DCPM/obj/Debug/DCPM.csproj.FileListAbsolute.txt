@@ -14,3 +14,10 @@ F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCP
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\obj\Debug\DCPM.csprojResolveAssemblyReference.cache
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\obj\Debug\DCPM.dll
 F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\obj\Debug\DCPM.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\bin\Debug\DCPM.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\bin\Debug\DCPM.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\bin\Debug\DCPMCommon.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\bin\Debug\DCPMCommon.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\obj\Debug\DCPM.csprojResolveAssemblyReference.cache
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\obj\Debug\DCPM.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\DCPM\obj\Debug\DCPM.pdb
