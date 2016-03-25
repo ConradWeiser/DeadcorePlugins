@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelocityMeter", "VelocityMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResetLevel", "ResetLevel\ResetLevel.csproj", "{1D1F96A6-BD2A-4545-839F-CA339122D3EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathTimer", "PathTimer\PathTimer.csproj", "{7DAC346F-3F1D-4A3C-B6F2-877CE12011F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopwatch", "PathTimer\Stopwatch.csproj", "{7DAC346F-3F1D-4A3C-B6F2-877CE12011F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost", "Ghost\Ghost.csproj", "{B2097CFC-D79C-40C5-8A64-F0A6A6745CB3}"
 EndProject

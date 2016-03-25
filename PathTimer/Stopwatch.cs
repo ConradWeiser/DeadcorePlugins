@@ -116,15 +116,6 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     }
 
 
-    //This is called once per frame for GUI elements
-    //Manipulating Unity GUI elements must be done in here
-    private Vector3 currentPosition = new Vector3();
-    private Vector3 indicatorSize = new Vector3(5f, 5f, 5f);
-    private const int UPDATE_RATE = 60; // refresh per update
-    // variables dealing with the history of the player's position
-    private const int QUEUE_MAX = 200; // max element in the queue
-    private Queue<Vector3> positionHistoryQueue = new Queue<Vector3>(200);
-    private GameObject lastRenderedGameObject = null;
     // method to be called every time the gui is updated
     void OnGUI()
     {
@@ -134,44 +125,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 200, width, height), "Stopwatch");
             String time = String.Format("{0}.{1}", timer.Elapsed.Seconds, timer.Elapsed.Milliseconds);
             GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 180, 100, 20), time);
-
-            /* position tracker */
-            // get the last position of the player
-            this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
-            // create a box that tracks the player's position in the world
-            GUI.Box(new Rect(left, (Screen.height / 2) - (height / 2) - 400, width + 10, (height * 2)), "Player Position:");
-            // draw the labels on the box
-            int offset = 20;
-            foreach (String coordinateString in this.getLabels(this.currentPosition)) {
-                // draw each label with the corresponding string in the array
-                GUI.Label(new Rect(left + 10, (Screen.height / 2) - (height / 2) - (400 - offset), 150, 30), coordinateString);
-                // increment the offset to make it look good
-                offset += 15;
-            }
-            // check if the last rendered player history object is not null...
-            if (this.lastRenderedGameObject != null) GameObject.DestroyObject(this.lastRenderedGameObject);
-            // add the new position to the queue....
-            this.positionHistoryQueue.Enqueue(this.currentPosition);
-            // check if the queue is full. if so, make a new game object from the last object.
-            if (this.positionHistoryQueue.Count == QUEUE_MAX-1) {
-                // create a new game object from the last element
-                this.lastRenderedGameObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                this.lastRenderedGameObject.collider.enabled = false;
-                // get the oldest coordinate from the queue
-                Vector3 oldestCoordinate = this.positionHistoryQueue.Dequeue();
-                // move the last rendered object to the target position
-                this.lastRenderedGameObject.transform.position = oldestCoordinate;
-            }
         }
-    }
-
-    // method that will return a convenient array for the coordinates
-    private String[] getLabels(Vector3 coordinates) {
-        String[] sa = new String[3];
-        sa[0] = String.Format("X ==> {0:#.00}", coordinates.x);
-        sa[1] = String.Format("Y ==> {0:#.00}", coordinates.y);
-        sa[2] = String.Format("Z ==> {0:#.00}", coordinates.z);
-        return sa;
     }
 
     //Log a message to the default log file

@@ -1,0 +1,9 @@
+F:\Development\DeadcorePlugins\Ghost\obj\Debug\Ghost.csprojResolveAssemblyReference.cache
+F:\Development\DeadcorePlugins\Ghost\bin\Debug\Ghost.dll
+F:\Development\DeadcorePlugins\Ghost\bin\Debug\Ghost.pdb
+F:\Development\DeadcorePlugins\Ghost\bin\Debug\Assembly-CSharp.dll
+F:\Development\DeadcorePlugins\Ghost\bin\Debug\DCPMCommon.dll
+F:\Development\DeadcorePlugins\Ghost\bin\Debug\UnityEngine.dll
+F:\Development\DeadcorePlugins\Ghost\bin\Debug\DCPMCommon.pdb
+F:\Development\DeadcorePlugins\Ghost\obj\Debug\Ghost.dll
+F:\Development\DeadcorePlugins\Ghost\obj\Debug\Ghost.pdb
