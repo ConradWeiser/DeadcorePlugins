@@ -17,6 +17,10 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     int left = 20;
     int height = 40;
     int width = 100;
+    String[] checkpointlist;
+    int[] positionlist;
+
+    private Vector3 currentPosition = new Vector3();
 
     public Stopwatch timer;
 
@@ -65,6 +69,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         //Alternatively could use the DeadCore SettingsManager however this encrypts and serializes the data to settings.save and is not easily changed
         timerButton = DCPMSettings.GetKeyCodeSetting("DCPM-ToggleTimer", KeyCode.Q);
 
+
         DCPMMainConsole.Instance.ConsoleInput += ConsoleInput;
         timer = new Stopwatch();
 
@@ -103,16 +108,29 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     //Put stuff that you would normally put in the corresponding Unity method in the following methods
     //This is called once per frame
     void Update() {
-        if (Input.GetKeyDown(timerButton)) {
-            if (On) {
-                On = !On;
-                timer.Stop();
-            } else {
-                On = !On;
+
+            if (Application.isLoadingLevel)
+            {
+            //If the currently loaded level is "The Fall" (Level 1)
+            if(Application.loadedLevelName == "level01")
+            {
+                //Populate the list of checkpoints with that levels data.
+                checkpointlist[0] = 
+            }
+
+            // get the last position of the player
+            this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
+
+
+            for(int i=0; i <= positionlist.Length; i++)
+            {
+                
+            }
+
                 timer.Reset();
                 timer.Start();
             }
-        }
+
     }
 
 
@@ -125,6 +143,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 200, width, height), "Stopwatch");
             String time = String.Format("{0}.{1}", timer.Elapsed.Seconds, timer.Elapsed.Milliseconds);
             GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 180, 100, 20), time);
+
         }
     }
 

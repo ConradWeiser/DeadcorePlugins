@@ -51,7 +51,7 @@ public class PluginTemplate : MonoBehaviour, LoadablePlugin
         //Attach to the input from the DCPMMainConsole
         DCPMMainConsole.Instance.ConsoleInput += ConsoleInput;
         LogMessage("==>Starting up Ghost<==");
-        guiButton = DCPMSettings.GetKeyCodeSetting("DCPM-ToggleTimer", KeyCode.F1);
+        guiButton = DCPMSettings.GetKeyCodeSetting("DCPM-PlayerPosition", KeyCode.F1);
     }
 
  

@@ -54,6 +54,7 @@ public class PluginTemplate : MonoBehaviour, LoadablePlugin
             if (Input.GetKeyDown(resetButton))
             {
                 Application.LoadLevel(Application.loadedLevel);
+                LogMessage("Loaded: {0} - Having an index of {1}", Application.loadedLevelName, Application.loadedLevel);
             }
         }
     }
