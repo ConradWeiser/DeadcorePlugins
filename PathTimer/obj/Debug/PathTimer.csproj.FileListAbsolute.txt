@@ -1,0 +1,9 @@
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\obj\Debug\PathTimer.csprojResolveAssemblyReference.cache
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\PathTimer.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\PathTimer.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\Assembly-CSharp.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\DCPMCommon.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\UnityEngine.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\bin\Debug\DCPMCommon.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\obj\Debug\PathTimer.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\PathTimer\obj\Debug\PathTimer.pdb

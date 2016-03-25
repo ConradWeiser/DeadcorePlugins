@@ -1,0 +1,1 @@
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\obj\Release\VelocityMeter.csprojResolveAssemblyReference.cache

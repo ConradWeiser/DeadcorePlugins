@@ -1,0 +1,10 @@
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\ResetLevel.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\ResetLevel.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\Assembly-CSharp.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\DCPMCommon.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\UnityEngine.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\DCPM.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\bin\Debug\DCPMCommon.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\obj\Debug\ResetLevel.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\obj\Debug\ResetLevel.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\ResetLevel\obj\Debug\ResetLevel.csprojResolveAssemblyReference.cache

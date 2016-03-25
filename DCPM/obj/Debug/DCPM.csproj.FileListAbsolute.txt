@@ -1,0 +1,16 @@
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\bin\Debug\DCPM.dll
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\bin\Debug\DCPM.pdb
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\bin\Debug\Assembly-CSharp.dll
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\bin\Debug\UnityEngine.dll
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\obj\Debug\DCPM.csprojResolveAssemblyReference.cache
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\obj\Debug\DCPM.dll
+c:\users\standalone\documents\visual studio 2015\Projects\DCPM\DCPM\obj\Debug\DCPM.pdb
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\DCPM\bin\Debug\DCPMCommon.dll
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\DCPM\bin\Debug\DCPMCommon.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\bin\Debug\DCPM.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\bin\Debug\DCPM.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\bin\Debug\DCPMCommon.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\bin\Debug\DCPMCommon.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\obj\Debug\DCPM.csprojResolveAssemblyReference.cache
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\obj\Debug\DCPM.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\DCPM\obj\Debug\DCPM.pdb

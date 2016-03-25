@@ -1,0 +1,16 @@
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\bin\Debug\VelocityMeter.dll
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\bin\Debug\VelocityMeter.pdb
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\bin\Debug\Assembly-CSharp.dll
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\bin\Debug\DCPMCommon.dll
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\bin\Debug\UnityEngine.dll
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\bin\Debug\DCPMCommon.pdb
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\obj\Debug\VelocityMeter.csprojResolveAssemblyReference.cache
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\obj\Debug\VelocityMeter.dll
+C:\Users\Standalone\documents\visual studio 2015\Projects\DCPM\VelocityMeter\obj\Debug\VelocityMeter.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\bin\Debug\VelocityMeter.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\bin\Debug\VelocityMeter.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\bin\Debug\DCPMCommon.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\bin\Debug\DCPMCommon.pdb
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\obj\Debug\VelocityMeter.csprojResolveAssemblyReference.cache
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\obj\Debug\VelocityMeter.dll
+F:\Development\DeadCorePluginManager-master\DeadCorePluginManager-master\src\VelocityMeter\obj\Debug\VelocityMeter.pdb
