@@ -12,13 +12,18 @@ using System.IO;
 public class VelocityMeter : MonoBehaviour, LoadablePlugin
 {
     KeyCode timerButton;
-    bool Active = true;
 
     int left = 20;
     int height = 30;
     int width = 100;
 
+    bool timerStart = true;
+
     public Stopwatch timer;
+
+    private Vector3 currentPosition = new Vector3();
+
+
 
 
     //Create the pluginInfo dictionary
@@ -106,6 +111,15 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     private List<LevelCoordinate> LevelCoordinates = null;
     private LevelCoordinateIF LevelCoordinateManager = null;
     void Update() {
+
+        if (Application.isLoadingLevel)
+        {
+            //This is needed to make sure the timer starts as soon as the player is able to move. The timer start is triggered based off of this temporary flag.
+            timerStart = true;
+        }
+
+        this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
+
         // handle if the level coordinates are currently undefined
         if (this.LevelCoordinates == null && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
             // try to define the current level coordinates all the time
@@ -129,19 +143,17 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     // method to be called every time the gui is updated
     void OnGUI()
     {
-        if (this.Active && GameManager.Instance.CurrentGameState == GameManager.GameState.InGame) {
-            // create a box that tracks the player's time elapsed
-            GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 200, width, height), "Stopwatch");
-            String time = String.Format("{0}.{1}", timer.Elapsed.Seconds, timer.Elapsed.Milliseconds);
-            GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 180, 100, 20), time);
-        }
         if (this.LevelCoordinates != null) {
+            if (timerStart) { timer.Start(); timerStart = false; }
             int offset = 20;
             GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 100, width * 2, height + ((this.LevelCoordinates.Count + 1) * offset)), "LevelLoading");
             foreach(LevelCoordinate coordinate in this.LevelCoordinates) {
                 GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 100 + offset, (width * 2) - 20, 25), coordinate.ToString());
                 offset += 15;
             }
+            int currentTimeOffset = 20;
+            String time = String.Format("{0}.{1}", timer.Elapsed.Seconds, timer.Elapsed.Milliseconds);
+            GUI.Label(new Rect(left+150, Screen.height / 2 - height / 2 - 100 + currentTimeOffset, (width * 2) - 20, height * currentTimeOffset), time);
         }
     }
 
@@ -151,3 +163,6 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         DCPMLogger.LogMessage("[Timer] " + message, args: args);
     }
 }
+
+
+
