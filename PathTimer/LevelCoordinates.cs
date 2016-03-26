@@ -46,10 +46,10 @@ namespace LevelCoordinates {
             // attempt to get a concrete type of the target class
             Type type = null;
             try { type = Type.GetType(typeBuilder.ToString());
-            } catch (Exception ex) { DCPMCommon.DCPMLogger.LogMessage(ex.Message); }
+            } catch (Exception ex) { /* DCPMCommon.DCPMLogger.LogMessage(ex.Message); */ }
             // attempt to get a concrete object of the target class
             try { Instance.LevelCoordinateObject = (AbstractLevelCoordinate) Activator.CreateInstance(type);
-            } catch (Exception ex) { DCPMCommon.DCPMLogger.LogMessage(ex.Message); }
+            } catch (Exception ex) { /* DCPMCommon.DCPMLogger.LogMessage(ex.Message); */ }
             // return the level activator object
             return Instance;
         }
@@ -59,13 +59,10 @@ namespace LevelCoordinates {
             if (this.LevelCoordinateObject == null) { return null; }
             return this.LevelCoordinateObject.GetCoordinateList();
         }
-        public static String GetString() {
-            return "test string";
-        }
         // method to convert the level ID into the level number
         private static int Hash(int levelID) {
             // iterate through the level values
-            DCPMCommon.DCPMLogger.LogMessage("Processing hash code "+levelID+"\n");
+            // DCPMCommon.DCPMLogger.LogMessage("Processing hash code "+levelID+"\n");
             switch (levelID) {
                 case  8: return 1; // level 1's ID is 7
                 case  9: return 2; // level 2's ID is 9
@@ -77,7 +74,7 @@ namespace LevelCoordinates {
         }
     }
 
-    // class for level 1 (level ID #7)
+    // class for level 1 (level ID #8)
     internal class Level1Coordinates : AbstractLevelCoordinate {
         // override the default level coordinate list implementation
         public Level1Coordinates() {
@@ -105,7 +102,21 @@ namespace LevelCoordinates {
         // override the ToString method to return the level description
         public override string ToString() {
             // return what level this is
-            return "Level 1 (Level ID 7)";
+            return "Level 1 (Level ID 8)";
+        }
+    }
+
+    // class for level 2 (Level ID #9)
+    internal class Level2Coordinates : AbstractLevelCoordinate {
+        // override the default level coordinate list implementation
+        public Level2Coordinates() {
+            // create the list of coordinates
+            this.coordinateList = new List<LevelCoordinate>() {
+                new LevelCoordinate("Start          ", new Vector3(-208f,   22f,    0f)),
+            };
+        }
+        public override string ToString() {
+            return "Level 2 (Level ID 9)";
         }
     }
 
@@ -117,12 +128,55 @@ namespace LevelCoordinates {
         public String Name { get; private set; }
         // private boolean indicator for whether or not the coordinate has been visited
         public Boolean Visited { get; set; }
+        // private variable for the time that they were visited at
+        public TimeSpan VisitedTime { get; set; }
         // constructor ( name + coordinate )
         public LevelCoordinate(String name, Vector3 location) {
             // set the name of the coordinate
             this.Name = name;
             // set the location of the coordinate
             this.Location = location;
+            // set the default state of visited to false
+            this.Visited = false;
+            // set the default state of visited time to null
+            this.VisitedTime = new TimeSpan(0);
+        }
+        // public method for checking if the user is within the region of the coordinate
+        private const float COLLISION_DISTANCE = 10f;
+        public Boolean CheckCollide(Vector3 position) {
+            // check the x coordinate, return false if out of range
+            if (Math.Abs(this.Location.x - position.x) > COLLISION_DISTANCE) return false;
+            // check the y coordinate, return false if out of range
+            if (Math.Abs(this.Location.y - position.y) > COLLISION_DISTANCE) return false;
+            // check the z coordinate, return false if out of range
+            if (Math.Abs(this.Location.z - position.z) > COLLISION_DISTANCE) return false;
+            // if all of the coordinates are within range, return true
+            return true;
+        }
+        // method to output the elapsed time (more flexible than TimeSpan.ToString())
+        public String ElapsedTimeString() {
+            // check if the elapsed time is zero
+            if (this.VisitedTime.Ticks == 0) { return "--:--:--.---"; }
+            // construct a stringbuilder for the elapsed time of the coordinate
+            StringBuilder stringBuilder = new StringBuilder();
+            // handle the number of hours elapsed
+            int hours = (int) Math.Floor(this.VisitedTime.TotalHours) % 24;
+            if (Math.Floor(this.VisitedTime.TotalHours) > 0)
+                stringBuilder.AppendFormat("{0:00}:", hours);
+            // handle the number of minutes elapsed
+            int minutes = (int) Math.Floor(this.VisitedTime.TotalMinutes) % 60;
+            if (Math.Floor(this.VisitedTime.TotalMinutes) > 0)
+                stringBuilder.AppendFormat("{0:00}:", minutes);
+            // handle the number of seconds elapsed
+            int seconds = (int) Math.Floor(this.VisitedTime.TotalSeconds) % 60;
+            if (Math.Floor(this.VisitedTime.TotalSeconds) > 0)
+                stringBuilder.AppendFormat("{0:00}.", seconds);
+            // handle the number of milliseconds elapsed
+            int millis = (int) Math.Floor(this.VisitedTime.TotalMilliseconds) % 1000;
+            if (Math.Floor(this.VisitedTime.TotalMilliseconds) > 0)
+                stringBuilder.AppendFormat("{0:000}", millis);
+            // return the time string
+            return stringBuilder.ToString();
         }
         // override the ToString method
         public override string ToString() {

@@ -7,7 +7,7 @@ using DCPMCommon.Interfaces;
 using DCPMCommon;
 using System.Diagnostics;
 using LevelCoordinates;
-using System.IO;
+using System.Text;
 // class 
 public class VelocityMeter : MonoBehaviour, LoadablePlugin
 {
@@ -20,11 +20,6 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     bool timerStart = true;
 
     public Stopwatch timer;
-
-    private Vector3 currentPosition = new Vector3();
-
-
-
 
     //Create the pluginInfo dictionary
     Dictionary<String, String> pluginInfo = new Dictionary<String, String>()
@@ -102,12 +97,20 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             }
         }
 
+        if (args.Length == 1 && args[0] == "coord") {
+            LogMessage("=== Current Coordinates ===");
+            LogMessage("= X ==> " + Math.Round(Android.Instance.gameObject.transform.rigidbody.position.x));
+            LogMessage("= Y ==> " + Math.Round(Android.Instance.gameObject.transform.rigidbody.position.y));
+            LogMessage("= Z ==> " + Math.Round(Android.Instance.gameObject.transform.rigidbody.position.z));
+        }
 
     }
 
 
     //Put stuff that you would normally put in the corresponding Unity method in the following methods
     //This is called once per frame
+    private int counter = 0, index = 0;
+    private Vector3 currentPosition = new Vector3();
     private List<LevelCoordinate> LevelCoordinates = null;
     private LevelCoordinateIF LevelCoordinateManager = null;
     void Update() {
@@ -125,35 +128,86 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             // try to define the current level coordinates all the time
             this.LevelCoordinateManager = LevelCoordinateActivator.GetInstance(Application.loadedLevel);
             this.LevelCoordinates = this.LevelCoordinateManager.GetCoordinateList();
+        // ignore when the user is already going through a level
         } else if (Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
-            // rofl idk
-            // ignore
         // otherwise, handle when the level coordinates are already defined
         } else {
             // check if the user is not in a level at the moment
-            LogMessage("Test4a: {0}\n", LevelCoordinateActivator.GetString());
-            if (Application.loadedLevel == 4) {
+            if (Application.loadedLevel == 4 || Application.loadedLevel == 3) {
                 // this means the user is not in the game anymore, unload the coordinates
                 this.LevelCoordinateManager = null;
+                this.LevelCoordinates = null;
             }
+        }
+
+        // handle the updates when the list of coordinates is already defined
+        if (this.LevelCoordinates != null) {
+            // check if the counter is on a checking frame, return early if not right frame
+            if (((this.counter += 1) % 30) != 0) return;
+            // get the player's current position
+            this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
+            // check whether the user is within range of the current coordinate
+            if (!this.LevelCoordinates[index].CheckCollide(this.currentPosition)) return;
+            // set the visited time of the current coordinate to the current elapsed time
+            if (this.LevelCoordinates[index].Visited) return;
+            this.LevelCoordinates[index].VisitedTime = this.timer.Elapsed;
+            this.LevelCoordinates[index].Visited = true;
+            // if within range, increment the index variable
+            if (this.index == this.LevelCoordinates.Count) return;
+            this.index = this.index + 1;
         }
     }
 
-
+    private const int BOX_OFFSET = 20;
+    private const int BOX_WIDTH = 200;
+    private const int LABEL_WIDTH = 120;
+    private const int LINE_HEIGHT = 20;
     // method to be called every time the gui is updated
     void OnGUI()
     {
-        if (this.LevelCoordinates != null) {
-            if (timerStart) { timer.Start(); timerStart = false; }
-            int offset = 20;
-            GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 100, width * 2, height + ((this.LevelCoordinates.Count + 1) * offset)), "LevelLoading");
-            foreach(LevelCoordinate coordinate in this.LevelCoordinates) {
-                GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 100 + offset, (width * 2) - 20, 25), coordinate.ToString());
-                offset += 15;
+        // first check that the set of level coordinates is not null
+        if (this.LevelCoordinates == null) return;
+        // check if the timer has been started yet.  if not, start it.
+        if (!this.timer.IsRunning) this.timer.Start();
+        // construct the box that holds all of the labels in it
+        int totalHeight = (this.LevelCoordinates.Count + 1) * LINE_HEIGHT;
+        GUI.Box(new Rect(BOX_OFFSET, BOX_OFFSET, BOX_WIDTH, totalHeight), this.timer.Elapsed.ToString());
+        // loop through all of the LevelCoordinate objects and display them in the GUI
+        for (int i = 0; i < this.LevelCoordinates.Count; i ++) {
+            // calculate the new height of the current label
+            int labelHeight = (i + 1) * LINE_HEIGHT;
+            // check if the current coordinate has already been visited or not
+            String coordinateNameString = null;
+            String coordinateTimeString = null;
+            if (this.LevelCoordinates[i].Visited) {
+                // construct a stringbuilder for the name of the current coordinate
+                StringBuilder coordinateNameStringBuilder = new StringBuilder();
+                // set the color as blue to indicate that it has already been visited
+                coordinateNameStringBuilder.Append("<color=#0000ffff>");
+                coordinateNameStringBuilder.Append(this.LevelCoordinates[i].Name);
+                coordinateNameStringBuilder.Append("</color>");
+                coordinateNameString = coordinateNameStringBuilder.ToString();
+                // construct a stringbuilder for the time of the current coordinate
+                StringBuilder coordinateTimeStringBuilder = new StringBuilder();
+                // set the color as green for the time
+                coordinateTimeStringBuilder.Append(this.LevelCoordinates[i].ElapsedTimeString());
+                coordinateTimeString = coordinateTimeStringBuilder.ToString();
+            // handle the coordinates that have not yet been visited
+            } else {
+                // construct a stringbuilder for the name of the current coordinate
+                StringBuilder coordinateNameStringBuilder = new StringBuilder();
+                // set the color as blue to indicate that it has already been visited
+                coordinateNameStringBuilder.Append(this.LevelCoordinates[i].Name);
+                coordinateNameString = coordinateNameStringBuilder.ToString();
+                // construct a stringbuilder for the time of the current coordinate
+                StringBuilder coordinateTimeStringBuilder = new StringBuilder();
+                coordinateTimeStringBuilder.Append(this.LevelCoordinates[i].ElapsedTimeString());
+                coordinateTimeString = coordinateTimeStringBuilder.ToString();
             }
-            int currentTimeOffset = 20;
-            String time = String.Format("{0}.{1}", timer.Elapsed.Seconds, timer.Elapsed.Milliseconds);
-            GUI.Label(new Rect(left+150, Screen.height / 2 - height / 2 - 100 + currentTimeOffset, (width * 2) - 20, height * currentTimeOffset), time);
+            // write the labels onto the gui box
+            GUI.Label(new Rect(BOX_OFFSET + 5, BOX_OFFSET + labelHeight, LABEL_WIDTH, LINE_HEIGHT), coordinateNameString);
+            GUIStyle timeStyle = GUI.skin.GetStyle("Label"); timeStyle.alignment = TextAnchor.MiddleLeft;
+            GUI.Label(new Rect(BOX_OFFSET + LABEL_WIDTH, BOX_OFFSET + labelHeight, LABEL_WIDTH, LINE_HEIGHT), coordinateTimeString);
         }
     }
 
