@@ -1,26 +1,22 @@
-﻿using System;
+﻿// system imports for base functionality
+using System;
 using System.Collections.Generic;
-
+// library reference imports
 using UnityEngine;
 using DCPMCommon.Interfaces;
 using DCPMCommon;
 using System.Diagnostics;
-
-
-
+using LevelCoordinates;
+using System.IO;
+// class 
 public class VelocityMeter : MonoBehaviour, LoadablePlugin
 {
     KeyCode timerButton;
     bool Active = true;
-    bool On = false;
 
     int left = 20;
-    int height = 40;
+    int height = 30;
     int width = 100;
-    String[] checkpointlist;
-    int[] positionlist;
-
-    private Vector3 currentPosition = new Vector3();
 
     public Stopwatch timer;
 
@@ -107,43 +103,45 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
 
     //Put stuff that you would normally put in the corresponding Unity method in the following methods
     //This is called once per frame
+    private List<LevelCoordinate> LevelCoordinates = null;
+    private LevelCoordinateIF LevelCoordinateManager = null;
     void Update() {
-
-            if (Application.isLoadingLevel)
-            {
-            //If the currently loaded level is "The Fall" (Level 1)
-            if(Application.loadedLevelName == "level01")
-            {
-                //Populate the list of checkpoints with that levels data.
-                checkpointlist[0] = 
+        // handle if the level coordinates are currently undefined
+        if (this.LevelCoordinates == null && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
+            // try to define the current level coordinates all the time
+            this.LevelCoordinateManager = LevelCoordinateActivator.GetInstance(Application.loadedLevel);
+            this.LevelCoordinates = this.LevelCoordinateManager.GetCoordinateList();
+        } else if (Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
+            // rofl idk
+            // ignore
+        // otherwise, handle when the level coordinates are already defined
+        } else {
+            // check if the user is not in a level at the moment
+            LogMessage("Test4a: {0}\n", LevelCoordinateActivator.GetString());
+            if (Application.loadedLevel == 4) {
+                // this means the user is not in the game anymore, unload the coordinates
+                this.LevelCoordinateManager = null;
             }
-
-            // get the last position of the player
-            this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
-
-
-            for(int i=0; i <= positionlist.Length; i++)
-            {
-                
-            }
-
-                timer.Reset();
-                timer.Start();
-            }
-
+        }
     }
 
 
     // method to be called every time the gui is updated
     void OnGUI()
     {
-        if (this.Active && GameManager.Instance.CurrentGameState == GameManager.GameState.InGame)
-        {
+        if (this.Active && GameManager.Instance.CurrentGameState == GameManager.GameState.InGame) {
             // create a box that tracks the player's time elapsed
             GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 200, width, height), "Stopwatch");
             String time = String.Format("{0}.{1}", timer.Elapsed.Seconds, timer.Elapsed.Milliseconds);
             GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 180, 100, 20), time);
-
+        }
+        if (this.LevelCoordinates != null) {
+            int offset = 20;
+            GUI.Box(new Rect(left, Screen.height / 2 - height / 2 - 100, width * 2, height + ((this.LevelCoordinates.Count + 1) * offset)), "LevelLoading");
+            foreach(LevelCoordinate coordinate in this.LevelCoordinates) {
+                GUI.Label(new Rect(left + 10, Screen.height / 2 - height / 2 - 100 + offset, (width * 2) - 20, 25), coordinate.ToString());
+                offset += 15;
+            }
         }
     }
 

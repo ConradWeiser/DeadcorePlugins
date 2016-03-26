@@ -7,3 +7,10 @@ F:\Development\DeadcorePlugins\Ghost\bin\Debug\UnityEngine.dll
 F:\Development\DeadcorePlugins\Ghost\bin\Debug\DCPMCommon.pdb
 F:\Development\DeadcorePlugins\Ghost\obj\Debug\Ghost.dll
 F:\Development\DeadcorePlugins\Ghost\obj\Debug\Ghost.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\bin\Debug\Ghost.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\bin\Debug\Ghost.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\bin\Debug\DCPMCommon.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\bin\Debug\DCPMCommon.pdb
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\obj\Debug\Ghost.csprojResolveAssemblyReference.cache
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\obj\Debug\Ghost.dll
+C:\Users\Brian Ristau\Documents\Visual Studio 2015\Projects\DeadcorePlugins\Ghost\obj\Debug\Ghost.pdb
