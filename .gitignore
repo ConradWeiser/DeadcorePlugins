@@ -1,2 +1,5 @@
-*/bin/*
-*/obj/*
+## Ignore VisualStudio files
+bin/
+obj/
+*.suo
+*.user
