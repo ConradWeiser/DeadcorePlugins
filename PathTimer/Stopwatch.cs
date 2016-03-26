@@ -114,7 +114,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
 
         if (Application.isLoadingLevel)
         {
-            //This is needed to make sure the timer starts as soon as the player is able to move. The timer start is triggered based off of this temporary flag.
+            //This is needed to make sure the timer starts as soon as the player is able to move. The timer start is triggered based off of this temporary flag
             timerStart = true;
         }
 
