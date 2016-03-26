@@ -126,13 +126,20 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             // LogMessage("Loaded: {0} - Having an index of {1}", Application.loadedLevelName, Application.loadedLevel);
         }
 
-        this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
+        // check if the timer needs to be shut off
+        if (this.LevelTimer.IsRunning && Application.loadedLevel < 8 || Application.loadedLevel > 12) {
+            // unload the level time and coordinate objects
+            this.LevelTimer.Reset();
+            this.LevelCoordinateManager = null;
+            this.LevelCoordinates = null;
+            this.index = 0;
+            Application.LoadLevel(Application.loadedLevel);
+        }
 
         // handle if the level coordinates are currently undefined
         if ((this.LevelCoordinates == null || this.LevelCoordinateManager == null) && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
             // try to define the current level coordinates all the time
             this.LevelCoordinateManager = LevelCoordinateActivator.GetInstance(Application.loadedLevel);
-            LevelTimer.Reset();
             this.LevelCoordinates = this.LevelCoordinateManager.GetCoordinateList();
         // ignore when the user is already going through a level
         } else if (Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
@@ -229,7 +236,10 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
                 coordinateNameString = coordinateNameStringBuilder.ToString();
                 // construct a stringbuilder for the time of the current coordinate
                 StringBuilder coordinateTimeStringBuilder = new StringBuilder();
-                coordinateTimeStringBuilder.Append(this.LevelCoordinates[i].ElapsedTimeString());
+                // handle the condition under which the checkpoint was skipped
+                if (index > i) coordinateTimeStringBuilder.Append("<<SKIPPED>>");
+                // handle the condition under which the checkpoint was not skipped
+                else coordinateTimeStringBuilder.Append(this.LevelCoordinates[i].ElapsedTimeString());
                 coordinateTimeString = coordinateTimeStringBuilder.ToString();
             }
             // write the labels onto the gui box

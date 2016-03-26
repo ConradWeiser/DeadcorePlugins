@@ -137,6 +137,47 @@ namespace LevelCoordinates {
         }
     }
 
+    // class for level 3 (Level ID #1-)
+    internal class Level3Coordinates : AbstractLevelCoordinate {
+        // override the default level coordinate list implementation
+        public Level3Coordinates() {
+            // create the list of coordinates
+            this.coordinateList = new List<LevelCoordinate>() {
+                new LevelCoordinate("Across the Gap ", new Vector3( 165f,  534f,    0f)),
+                new LevelCoordinate("Halfway Point  ", new Vector3( 214f,  573f,  -17f)),
+                new LevelCoordinate("Closing Walls 1", new Vector3( 265f,  590f,   50f)),
+                new LevelCoordinate("Closing Walls 2", new Vector3( 383f,  590f,   51f)),
+                new LevelCoordinate("Closing Walls 3", new Vector3( 383f,  594f,  -78f)),
+                new LevelCoordinate("The Ascent     ", new Vector3( 178f,  683f, -110f)),
+                new LevelCoordinate("Split Paths    ", new Vector3( 155f,  702f, -134f)),
+                // left pathway
+                new LevelCoordinate("Box Hopping    ", new Vector3( 155f,  758f, -250f)),
+                new LevelCoordinate("Needle Thread 1", new Vector3(  19f,  767f, -300f)),
+                new LevelCoordinate("Needle Thread 2", new Vector3( -27f,  822f, -294f)),
+                new LevelCoordinate("The Ascent 2   ", new Vector3(-133f,  874f,  -71f)),
+                new LevelCoordinate("Tumbler Fall 1 ", new Vector3(-380f,  919f,    5f)),
+                new LevelCoordinate("Fans 1         ", new Vector3(-309f,  880f,  212f)),
+                new LevelCoordinate("The Ascent 3   ", new Vector3(-170f,  941f,  278f)),
+                // right pathway
+                new LevelCoordinate("Falling Control", new Vector3( 151f,  765f,  -18f)),
+                new LevelCoordinate("Cubes 1        ", new Vector3( 151f,  730f,  331f)),
+                new LevelCoordinate("Cubes 2        ", new Vector3( 102f,  760f,  373f)),
+                new LevelCoordinate("Timing Control ", new Vector3(  -6f,  782f,  234f)),
+                new LevelCoordinate("Close Quarters ", new Vector3( -34f,  806f,  423f)),
+                new LevelCoordinate("Fans 2         ", new Vector3( -34f,  880f,  183f)),
+                new LevelCoordinate("Merging Paths  ", new Vector3(-119f,  941f,  195f)),
+                // merge of the two pathways
+                new LevelCoordinate("Tumbler Fall 2 ", new Vector3(-215f,  989f,  187f)),
+                new LevelCoordinate("Tumbler Warzone", new Vector3( -82f, 1039f,  245f)),
+                new LevelCoordinate("Needle Thread 3", new Vector3(-136f, 1105f,  380f)),
+                new LevelCoordinate("Ending         ", new Vector3(-136f, 1137f,  118f))
+            };
+        }
+        public override string ToString() {
+            return "Level 3 (Level ID 10)";
+        }
+    }
+
     // class for all of the coordinates
     public class LevelCoordinate {
         // private field for the coordinates
@@ -193,18 +234,6 @@ namespace LevelCoordinates {
             if (Math.Floor(this.VisitedTime.TotalMilliseconds) > 0)
                 stringBuilder.AppendFormat("{0:000}", millis);
             // return the time string
-            return stringBuilder.ToString();
-        }
-        // override the ToString method
-        public override string ToString() {
-            // make a string builder for formatting the string
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(this.Name);
-            // stringBuilder.Append(" (");
-            // stringBuilder.Append(Math.Round(this.Location.x)).Append(", ");
-            // stringBuilder.Append(Math.Round(this.Location.y)).Append(", ");
-            // stringBuilder.Append(Math.Round(this.Location.z)).Append(")");
-            // return the constructed string
             return stringBuilder.ToString();
         }
     }
