@@ -46,10 +46,10 @@ namespace LevelCoordinates {
             // attempt to get a concrete type of the target class
             Type type = null;
             try { type = Type.GetType(typeBuilder.ToString());
-            } catch (Exception ex) { /* DCPMCommon.DCPMLogger.LogMessage(ex.Message); */ }
+            } catch (Exception /* ex */) { /* DCPMCommon.DCPMLogger.LogMessage(ex.Message); */ }
             // attempt to get a concrete object of the target class
             try { Instance.LevelCoordinateObject = (AbstractLevelCoordinate) Activator.CreateInstance(type);
-            } catch (Exception ex) { /* DCPMCommon.DCPMLogger.LogMessage(ex.Message); */ }
+            } catch (Exception /* ex */) { /* DCPMCommon.DCPMLogger.LogMessage(ex.Message); */ }
             // return the level activator object
             return Instance;
         }

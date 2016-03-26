@@ -12,16 +12,9 @@ using System.Text;
 public class VelocityMeter : MonoBehaviour, LoadablePlugin
 {
     KeyCode timerButton;
-
-    int left = 20;
-    int height = 30;
-    int width = 100;
-
-    bool timerStart = true;
-
     KeyCode resetButton;
 
-    public Stopwatch timer;
+    private Stopwatch LevelTimer;
 
     //Create the pluginInfo dictionary
     Dictionary<String, String> pluginInfo = new Dictionary<String, String>()
@@ -70,7 +63,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
 
 
         DCPMMainConsole.Instance.ConsoleInput += ConsoleInput;
-        timer = new Stopwatch();
+        LevelTimer = new Stopwatch();
 
         LogMessage("=== Stopwatch init complete ===");
     }
@@ -88,7 +81,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
                         timerButton = (KeyCode)System.Enum.Parse(typeof(KeyCode), args[2]);
                         DCPMSettings.SetSetting("DCPM-ToggleTimer", timerButton);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         LogMessage("Error: Cannot convert {0} to UnityEngine.KeyCode", args[2]);
                     }
@@ -100,6 +93,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             }
         }
 
+        // console command to output the current coordinates
         if (args.Length == 1 && args[0] == "coord") {
             LogMessage("=== Current Coordinates ===");
             LogMessage("= X ==> " + Math.Round(Android.Instance.gameObject.transform.rigidbody.position.x));
@@ -121,15 +115,9 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         if (Input.GetKeyDown(resetButton))
         {
             Application.LoadLevel(Application.loadedLevel);
-            timer.Stop();
-            timer.Reset();
+            LevelTimer.Stop();
+            LevelTimer.Reset();
             LogMessage("Loaded: {0} - Having an index of {1}", Application.loadedLevelName, Application.loadedLevel);
-        }
-
-        if (Application.isLoadingLevel)
-        {
-            //This is needed to make sure the timer starts as soon as the player is able to move. The timer start is triggered based off of this temporary flag
-            timerStart = true;
         }
 
         this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
@@ -138,18 +126,25 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         if (this.LevelCoordinates == null && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
             // try to define the current level coordinates all the time
             this.LevelCoordinateManager = LevelCoordinateActivator.GetInstance(Application.loadedLevel);
-            timer.Reset();
+            LevelTimer.Reset();
             this.LevelCoordinates = this.LevelCoordinateManager.GetCoordinateList();
         // ignore when the user is already going through a level
         } else if (Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
-        // otherwise, handle when the level coordinates are already defined
-        } else {
-            // check if the user is not in a level at the moment
-            if (Application.loadedLevel == 4 || Application.loadedLevel == 3) {
-                // this means the user is not in the game anymore, unload the coordinates
+            // check if the level is being reloaded
+            if (Application.isLoadingLevel) {
+                // if the level is being reset, reset everything
+                this.LevelTimer.Reset();
                 this.LevelCoordinateManager = null;
                 this.LevelCoordinates = null;
+                this.index = 0;
             }
+        // otherwise, handle when the level coordinates are already defined
+        } else {
+            // unload the level time and coordinate objects
+            this.LevelTimer.Reset();
+            this.LevelCoordinateManager = null;
+            this.LevelCoordinates = null;
+            this.index = 0;
         }
 
         // handle the updates when the list of coordinates is already defined
@@ -158,14 +153,27 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             if (((this.counter += 1) % 30) != 0) return;
             // get the player's current position
             this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
-            // check whether the user is within range of the current coordinate
-            if (!this.LevelCoordinates[index].CheckCollide(this.currentPosition)) return;
+            // check whether the user is within range any future coordinates
+            int collidedIndex = -1; for (int i = index; i < this.LevelCoordinates.Count; i ++) {
+                // if not within range, continue as normal...
+                if (!this.LevelCoordinates[i].CheckCollide(this.currentPosition)) continue;
+                // otherwise set the collided index variable and break
+                collidedIndex = i;
+                index = collidedIndex;
+                break;
+            }
+            // if a point was not reached, break out of this if statement
+            if (collidedIndex == -1) return;
             // set the visited time of the current coordinate to the current elapsed time
             if (this.LevelCoordinates[index].Visited) return;
-            this.LevelCoordinates[index].VisitedTime = this.timer.Elapsed;
+            this.LevelCoordinates[index].VisitedTime = this.LevelTimer.Elapsed;
             this.LevelCoordinates[index].Visited = true;
             // if within range, increment the index variable
-            if (this.index == this.LevelCoordinates.Count) return;
+            if (this.index == this.LevelCoordinates.Count) {
+                // turn off the timer if the index is at the very end
+                this.LevelTimer.Stop();
+                return;
+            }
             this.index = this.index + 1;
         }
 
@@ -181,10 +189,10 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         // first check that the set of level coordinates is not null
         if (this.LevelCoordinates == null) return;
         // check if the timer has been started yet.  if not, start it.
-        if (!this.timer.IsRunning) this.timer.Start();
+        if (!this.LevelTimer.IsRunning) this.LevelTimer.Start();
         // construct the box that holds all of the labels in it
         int totalHeight = (this.LevelCoordinates.Count + 1) * LINE_HEIGHT;
-        GUI.Box(new Rect(BOX_OFFSET, BOX_OFFSET, BOX_WIDTH, totalHeight), this.timer.Elapsed.ToString());
+        GUI.Box(new Rect(BOX_OFFSET, BOX_OFFSET, BOX_WIDTH, totalHeight), this.LevelTimer.Elapsed.ToString());
         // loop through all of the LevelCoordinate objects and display them in the GUI
         for (int i = 0; i < this.LevelCoordinates.Count; i ++) {
             // calculate the new height of the current label
