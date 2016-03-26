@@ -19,6 +19,8 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
 
     bool timerStart = true;
 
+    KeyCode resetButton;
+
     public Stopwatch timer;
 
     //Create the pluginInfo dictionary
@@ -64,6 +66,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         //Check or create settings
         //Alternatively could use the DeadCore SettingsManager however this encrypts and serializes the data to settings.save and is not easily changed
         timerButton = DCPMSettings.GetKeyCodeSetting("DCPM-ToggleTimer", KeyCode.Q);
+        resetButton = DCPMSettings.GetKeyCodeSetting("DCPM-ResetButton", KeyCode.F5);
 
 
         DCPMMainConsole.Instance.ConsoleInput += ConsoleInput;
@@ -115,6 +118,14 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     private LevelCoordinateIF LevelCoordinateManager = null;
     void Update() {
 
+        if (Input.GetKeyDown(resetButton))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+            timer.Stop();
+            timer.Reset();
+            LogMessage("Loaded: {0} - Having an index of {1}", Application.loadedLevelName, Application.loadedLevel);
+        }
+
         if (Application.isLoadingLevel)
         {
             //This is needed to make sure the timer starts as soon as the player is able to move. The timer start is triggered based off of this temporary flag
@@ -127,6 +138,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         if (this.LevelCoordinates == null && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
             // try to define the current level coordinates all the time
             this.LevelCoordinateManager = LevelCoordinateActivator.GetInstance(Application.loadedLevel);
+            timer.Reset();
             this.LevelCoordinates = this.LevelCoordinateManager.GetCoordinateList();
         // ignore when the user is already going through a level
         } else if (Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
@@ -156,6 +168,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             if (this.index == this.LevelCoordinates.Count) return;
             this.index = this.index + 1;
         }
+
     }
 
     private const int BOX_OFFSET = 20;
