@@ -91,7 +91,7 @@ namespace LevelCoordinates {
                 new LevelCoordinate("Up And Around  ", new Vector3( 113f, -245f,   98f)), // UP AND AROUND
                 new LevelCoordinate("Other Side     ", new Vector3(  80f, -190f,   -5f)), // TO THE OTHER SIDE
                 new LevelCoordinate("Tumblers 1     ", new Vector3(  84f, -191f, -123f)), // TUMBLERS 1
-                new LevelCoordinate("tumblers 2     ", new Vector3( -76f, -131f, -136f)), // TUMBLERS 2
+                new LevelCoordinate("Tumblers 2     ", new Vector3( -76f, -131f, -136f)), // TUMBLERS 2
                 new LevelCoordinate("Tumblers 3     ", new Vector3(-161f, -131f, -209f)), // TUMBLERS 3
                 new LevelCoordinate("Fans!          ", new Vector3(-247f, -125f, -124f)), // COMMON ENEMY: FANS
                 new LevelCoordinate("Finish Dash 1  ", new Vector3(-241f,  -95f,   -5f)), // DASH FOR THE FINISH 1
@@ -112,7 +112,24 @@ namespace LevelCoordinates {
         public Level2Coordinates() {
             // create the list of coordinates
             this.coordinateList = new List<LevelCoordinate>() {
-                new LevelCoordinate("Start          ", new Vector3(-208f,   22f,    0f)),
+                new LevelCoordinate("Energy Shields ", new Vector3(-239f,   49f,  -53f)),
+                new LevelCoordinate("Shield Wheel   ", new Vector3(-219f,   70f,  -37f)),
+                new LevelCoordinate("Post-Wheel     ", new Vector3(-174f,   97f,    0f)),
+                new LevelCoordinate("Trapped!       ", new Vector3(-219f,  167f,  -16f)),
+                new LevelCoordinate("Around the Edge", new Vector3(-236f,  215f,  -19f)),
+                new LevelCoordinate("Choose a Path  ", new Vector3(-150f,  216f,    0f)),
+                new LevelCoordinate("Boxes (Right)  ", new Vector3(-158f,  264f,  -55f)),
+                new LevelCoordinate("More Boxes!    ", new Vector3(-158f,  278f, -177f)),
+                new LevelCoordinate("Crusher        ", new Vector3(  -3f,  302f, -206f)),
+                new LevelCoordinate("Keyhole (Left) ", new Vector3(-150f,  289f,   39f)),
+                new LevelCoordinate("Vertical Gates ", new Vector3( -99f,  321f,   75f)),
+                new LevelCoordinate("Grids          ", new Vector3(  64f,  304f,  140f)),
+                new LevelCoordinate("The Elevator   ", new Vector3( 149f,  332f,  114f)),
+                new LevelCoordinate("Path Merge     ", new Vector3(  97f,  371f,    0f)),
+                new LevelCoordinate("Pillars        ", new Vector3( 316f,  379f,    0f)),
+                new LevelCoordinate("Choose a Path 2", new Vector3( 385f,  422f,   -6f)),
+                new LevelCoordinate("Mind Your Head ", new Vector3( 465f,  421f,  -12f)),
+                new LevelCoordinate("Ending         ", new Vector3( 186f,  665f,    0f))
             };
         }
         public override string ToString() {
@@ -142,7 +159,7 @@ namespace LevelCoordinates {
             this.VisitedTime = new TimeSpan(0);
         }
         // public method for checking if the user is within the region of the coordinate
-        private const float COLLISION_DISTANCE = 10f;
+        private const float COLLISION_DISTANCE = 7f;
         public Boolean CheckCollide(Vector3 position) {
             // check the x coordinate, return false if out of range
             if (Math.Abs(this.Location.x - position.x) > COLLISION_DISTANCE) return false;

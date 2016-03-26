@@ -13,6 +13,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
 {
     KeyCode timerButton;
     KeyCode resetButton;
+    KeyCode revertKey;
 
     private Stopwatch LevelTimer;
 
@@ -59,8 +60,8 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         //Check or create settings
         //Alternatively could use the DeadCore SettingsManager however this encrypts and serializes the data to settings.save and is not easily changed
         timerButton = DCPMSettings.GetKeyCodeSetting("DCPM-ToggleTimer", KeyCode.Q);
+        revertKey = DCPMSettings.GetKeyCodeSetting("DCPM-RevertCheckpoint", KeyCode.R);
         resetButton = DCPMSettings.GetKeyCodeSetting("DCPM-ResetButton", KeyCode.F5);
-
 
         DCPMMainConsole.Instance.ConsoleInput += ConsoleInput;
         LevelTimer = new Stopwatch();
@@ -103,7 +104,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
 
     }
 
-
+    
     //Put stuff that you would normally put in the corresponding Unity method in the following methods
     //This is called once per frame
     private int counter = 0, index = 0;
@@ -111,19 +112,24 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
     private List<LevelCoordinate> LevelCoordinates = null;
     private LevelCoordinateIF LevelCoordinateManager = null;
     void Update() {
-
-        if (Input.GetKeyDown(resetButton))
-        {
+        
+        // handle when the reset key is pressed
+        if (Input.GetKeyDown(resetButton)) {
+            // remove the references to the level coordinate objects
+            this.LevelCoordinates = null;
+            this.LevelCoordinateManager = null;
+            // reload the level
             Application.LoadLevel(Application.loadedLevel);
-            LevelTimer.Stop();
-            LevelTimer.Reset();
-            LogMessage("Loaded: {0} - Having an index of {1}", Application.loadedLevelName, Application.loadedLevel);
+            // stop and reset the timer
+            this.LevelTimer.Stop();
+            this.LevelTimer.Reset();
+            // LogMessage("Loaded: {0} - Having an index of {1}", Application.loadedLevelName, Application.loadedLevel);
         }
 
         this.currentPosition = Android.Instance.gameObject.transform.rigidbody.position;
 
         // handle if the level coordinates are currently undefined
-        if (this.LevelCoordinates == null && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
+        if ((this.LevelCoordinates == null || this.LevelCoordinateManager == null) && Application.loadedLevel >= 8 && Application.loadedLevel <= 12) {
             // try to define the current level coordinates all the time
             this.LevelCoordinateManager = LevelCoordinateActivator.GetInstance(Application.loadedLevel);
             LevelTimer.Reset();
@@ -138,7 +144,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
                 this.LevelCoordinates = null;
                 this.index = 0;
             }
-        // otherwise, handle when the level coordinates are already defined
+        // otherwise, handle when the level coordinates are already define
         } else {
             // unload the level time and coordinate objects
             this.LevelTimer.Reset();
@@ -169,11 +175,12 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
             this.LevelCoordinates[index].VisitedTime = this.LevelTimer.Elapsed;
             this.LevelCoordinates[index].Visited = true;
             // if within range, increment the index variable
-            if (this.index == this.LevelCoordinates.Count) {
+            if (this.index == this.LevelCoordinates.Count - 1) {
                 // turn off the timer if the index is at the very end
                 this.LevelTimer.Stop();
                 return;
             }
+            // increment the index
             this.index = this.index + 1;
         }
 
@@ -189,7 +196,7 @@ public class VelocityMeter : MonoBehaviour, LoadablePlugin
         // first check that the set of level coordinates is not null
         if (this.LevelCoordinates == null) return;
         // check if the timer has been started yet.  if not, start it.
-        if (!this.LevelTimer.IsRunning) this.LevelTimer.Start();
+        if (!this.LevelTimer.IsRunning && this.index < this.LevelCoordinates.Count - 1 && !Application.isLoadingLevel) this.LevelTimer.Start();
         // construct the box that holds all of the labels in it
         int totalHeight = (this.LevelCoordinates.Count + 1) * LINE_HEIGHT;
         GUI.Box(new Rect(BOX_OFFSET, BOX_OFFSET, BOX_WIDTH, totalHeight), this.LevelTimer.Elapsed.ToString());
